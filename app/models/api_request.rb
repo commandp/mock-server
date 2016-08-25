@@ -12,4 +12,14 @@
 #
 
 class ApiRequest < ApplicationRecord
+
+  after_save :reload_route
+  validates_presence_of :request_method, :request_path, :return_code, :return_value
+
+  private
+
+  def reload_route
+    DynamicRouter.reload
+  end
+
 end
