@@ -5,16 +5,23 @@
 #  id             :integer          not null, primary key
 #  request_method :string
 #  request_path   :string
-#  return_code    :string
-#  return_value   :text
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
+#  return_json    :json
+#  status_code    :integer
 #
 
 class ApiRequest < ApplicationRecord
 
   after_save :reload_route
-  validates_presence_of :request_method, :request_path, :return_code, :return_value
+  validates_presence_of :request_method, :request_path, :status_code, :return_json
+
+  REQUEST_METHOD = %w( get post put patch delete )
+  REQUEST_METHOD.each do |req|
+    scope "by_#{req}".to_sym, -> { where(request_method: req) }
+  end
+
+  enum status_code: Rack::Utils::SYMBOL_TO_STATUS_CODE
 
   private
 

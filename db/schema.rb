@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160825095109) do
+ActiveRecord::Schema.define(version: 20160825113339) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,10 +18,10 @@ ActiveRecord::Schema.define(version: 20160825095109) do
   create_table "api_requests", force: :cascade do |t|
     t.string   "request_method"
     t.string   "request_path"
-    t.string   "return_code"
-    t.text     "return_value"
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
+    t.json     "return_json"
+    t.integer  "status_code"
   end
 
 end
