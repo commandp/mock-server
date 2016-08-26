@@ -53,7 +53,7 @@ class ApiRequestsController < ApplicationController
   private
 
   def api_request_params
-    params.require(:api_request).permit(:request_method, :request_path, :return_json, :status_code)
+    params.require(:api_request).permit(:name, :description, :request_method, :request_path, :return_json, :status_code)
   end
 
 end

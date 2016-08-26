@@ -11,4 +11,8 @@ html lang="zh-TW"
   body
     = render 'shared/header'
     .container
-      = yield
+      .row
+        .col-md-3
+          = render 'shared/sidebar'
+        .col-md-9
+          = yield

@@ -1,5 +1,10 @@
 /*
+ *= require jquery.jsonview/jquery.jsonview
  *= require_self
  */
 
 @import 'bootstrap';
+
+#editor {
+  height: 400px;
+}

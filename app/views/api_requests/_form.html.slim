@@ -1,7 +1,32 @@
 = simple_form_for api_request do |f|
   = f.input :name, label: '名稱'
-  = f.input :description, label: '說明'
+  = f.input :description, label: '說明', as: :text
   = f.input :request_method, label: 'HTTP 請求方式', as: :select, collection: ApiRequest::REQUEST_METHOD.map(&:upcase), include_blank: false
-  = f.input :return_json, label: '返回 JSON'
-  = f.input :status_code, label: 'HTTP 返回狀態', as: :select, collection: ApiRequest.status_codes.values
+  = f.input :request_path, label: '請求路徑', wrapper: :vertical_input_group do
+    .input-group-addon
+      | /
+    = f.input_field :request_path, class: 'form-control'
+
+  .form-group
+    .card.card-blok
+      h3.card-title JSON
+      #editor
+        = api_request.return_json
+
+  = f.input :return_json, as: :hidden
+  = f.input :status_code, label: 'HTTP 返回狀態', as: :select, collection: ApiRequest.status_codes.keys
   = f.button :submit, '送出', class: 'btn btn-primary'
+
+script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js"
+script src="https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/mode-json.js"
+
+javascript:
+  var editor = ace.edit('editor');
+  editor.setTheme('ace/theme/monokai');
+  editor.getSession().setMode('ace/mode/json');
+  editor.getSession().setTabSize(2);
+  editor.getSession().setUseSoftTabs(true);
+  editor.getSession().on('change', function(e) {
+    console.log(editor.getValue());
+    $('input[id=api_request_return_json]').val(editor.getValue());
+  });
