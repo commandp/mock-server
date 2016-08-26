@@ -1,0 +1,7 @@
+= simple_form_for api_request do |f|
+  = f.input :name, label: '名稱'
+  = f.input :description, label: '說明'
+  = f.input :request_method, label: 'HTTP 請求方式', as: :select, collection: ApiRequest::REQUEST_METHOD.map(&:upcase), include_blank: false
+  = f.input :return_json, label: '返回 JSON'
+  = f.input :status_code, label: 'HTTP 返回狀態', as: :select, collection: ApiRequest.status_codes.values
+  = f.button :submit, '送出', class: 'btn btn-primary'
