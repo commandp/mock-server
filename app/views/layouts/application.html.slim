@@ -1,0 +1,18 @@
+doctype html
+html lang="zh-TW"
+  head
+    /! Required meta tags always come first
+    meta charset="utf-8" /
+    meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport" /
+    meta content="ie=edge" http-equiv="x-ua-compatible" /
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    = render 'shared/header'
+    .container
+      .row
+        .col-md-3
+          = render 'shared/sidebar'
+        .col-md-9
+          = yield

@@ -9,6 +9,8 @@
 #  updated_at     :datetime         not null
 #  return_json    :json
 #  status_code    :integer
+#  name           :string           default(""), not null
+#  description    :text             default(""), not null
 #
 
 class ApiRequest < ApplicationRecord

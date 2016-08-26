@@ -1,0 +1,26 @@
+.row
+  .col-md-6
+    = link_to '新增', new_api_request_path, class: 'btn btn-primary pull-right'
+.row
+  table.table
+    thead
+      tr
+        th Name
+        th Description
+        th API Method
+        th API Path
+        th API Return JSON
+        th API Status Code
+        th Action
+    tbody
+      - @api_requests.each do |api|
+        td= api.name
+        td= simple_format api.description
+        td
+          code= api.request_method.upcase
+        td
+          code= api.request_path
+        td= link_to '點我看更多', url_for(api)
+        td
+          code= "#{Rack::Utils::SYMBOL_TO_STATUS_CODE[api.status_code.to_sym]} | #{api.status_code} "
+        td= link_to '編輯', url_for([:edit, api]), class: 'btn btn-info'
