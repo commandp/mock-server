@@ -20,9 +20,14 @@
 
 class ApiRequest < ApplicationRecord
 
+
+  belongs_to :project
+
+  validates_presence_of :request_method, :request_path, :status_code, :return_json
+
   after_save :reload_route
   before_save :downcase_request_path_and_set_path
-  validates_presence_of :request_method, :request_path, :status_code, :return_json
+  before_save :upcase_request_method
 
   REQUEST_METHOD = %w( get post put patch delete )
   REQUEST_METHOD.each do |req|
@@ -42,6 +47,10 @@ class ApiRequest < ApplicationRecord
     if !self.request_path.start_with?('/')
       self.request_path = '/' + self.request_path
     end
+  end
+
+  def upcase_request_method
+    self.request_method.upcase!
   end
 
 end
