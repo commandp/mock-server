@@ -1,0 +1,10 @@
+.row
+  table.table
+    thead
+      tr
+        th Key
+        th Value
+        th Action
+    tbody
+      - @settings.each do |setting|
+        = render 'settings/setting', setting: setting

@@ -1,0 +1,5 @@
+tr id="setting_#{setting.id}"
+  = simple_form_for setting, remote: true do |f|
+    td= f.object.key
+    td= f.input :value, label: false
+    td= f.button :submit, '更新', class: 'btn btn-primary'

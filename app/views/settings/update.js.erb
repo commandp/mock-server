@@ -1,0 +1,2 @@
+var html = "<%= j(render('settings/setting', setting: @setting, remote: true)) %>"
+$("#settings_<%= @setting.id %>").html(html);
