@@ -74,7 +74,8 @@ class ApiRequestsController < ApplicationController
   end
 
   def filtered_params
-    params.except(:defaults, :controller, :action, :format)
+    clone_params = params.clone
+    ParamsGuard.new(clone_params).filtered_params
   end
 
 end

@@ -5,7 +5,7 @@
   = f.input :request_path, label: '請求路徑', wrapper: :vertical_input_group do
     .input-group-addon
       | /
-    = f.input_field :request_path, class: 'form-control', value: f.object.request_path.gsub(/^\//, '')
+    = f.input_field :request_path, class: 'form-control', value: f.object.request_path.try(:gsub, /^\//, '')
 
   .form-group
     .card.card-blok
