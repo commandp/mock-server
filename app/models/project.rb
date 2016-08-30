@@ -20,4 +20,7 @@ class Project < ApplicationRecord
 
   friendly_id :name, use: [:slugged, :finders]
 
+  has_many :api_requests, dependent: :destroy
+  alias_method :apis, :api_requests
+
 end

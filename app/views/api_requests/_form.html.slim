@@ -1,11 +1,11 @@
-= simple_form_for api_request do |f|
+= simple_form_for [project, api_request] do |f|
   = f.input :name, label: '名稱'
   = f.input :description, label: '說明', as: :text
   = f.input :request_method, label: 'HTTP 請求方式', as: :select, collection: ApiRequest::REQUEST_METHOD.map(&:upcase), include_blank: false
   = f.input :request_path, label: '請求路徑', wrapper: :vertical_input_group do
     .input-group-addon
       | /
-    = f.input_field :request_path, class: 'form-control'
+    = f.input_field :request_path, class: 'form-control', value: f.object.request_path.gsub(/^\//, '')
 
   .form-group
     .card.card-blok

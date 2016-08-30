@@ -1,0 +1,30 @@
+h2= @project.name
+
+p= simple_format @project.description
+
+.row
+  .col-md-6
+    = link_to '新增 API', new_project_api_request_path(@project), class: 'btn btn-primary pull-right'
+.row
+  table.table
+    thead
+      tr
+        th Name
+        th Description
+        th API Method
+        th API Path
+        th API Return JSON
+        th API Status Code
+        th Action
+    tbody
+      - @project.api_requests.each do |api|
+        td= link_to api.name, url_for([@project, api])
+        td= simple_format api.description
+        td
+          code= api.request_method.upcase
+        td
+          code= api.request_path
+        td= link_to '點我看更多', url_for([@project, api])
+        td
+          code= "#{Rack::Utils::SYMBOL_TO_STATUS_CODE[api.status_code.to_sym]} | #{api.status_code} "
+        td= link_to '編輯', url_for([:edit, @project, api]), class: 'btn btn-info'

@@ -1,18 +1,18 @@
 h2= @api_request.name
 
-.card.card-outline-primary.text-xs-center
-  .card-block
-    = simple_format @api_request.description
+p= simple_format @api_request.description
 
 .alert.alert-info role='alert'
-  strong #{@api_request.request_method.upcase} <code> #{@api_request.request_path} </code>
+  strong #{@api_request.request_method.upcase} <code> #{@project.name.downcase}#{@api_request.request_path} </code>
+
+.col-md-12.alert.alert-warning
+  pre
+    code
+      #json-formatter data-value="#{@api_request.return_json}"
 
 .col-md-12
-  #json-formatter data-value="#{@api_request.return_json}"
-
-.col-md-12
-  = link_to '毀滅', url_for(@api_request), method: :delete, confirm: '你想清楚了?', class: 'btn btn-danger'
+  = link_to '毀滅', url_for([@project, @api_request]), method: :delete, confirm: '你想清楚了?', class: 'btn btn-danger'
 
 javascript:
-  let data = $("#json-formatter").data('value');
-  $('#json-formatter').JSONView(data);
+  var json = $("#json-formatter").data('value');
+  $('#json-formatter').JSONView(json);
