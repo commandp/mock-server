@@ -5,3 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Setting.create!(key: 's3_bucket')
+Setting.create!(key: 's3_region')
+Setting.create!(key: 's3_access_key_id')
+Setting.create!(key: 's3_secret_access_key')

@@ -2,6 +2,7 @@ class ApiRequestsController < ApplicationController
 
   before_action :set_default_format, only: [:handle_request]
   before_action :find_project
+  skip_before_action :verify_authenticity_token, only: [:handle_request]
 
   def index
     @api_requests = @project.api_requests
@@ -47,7 +48,7 @@ class ApiRequestsController < ApplicationController
   def handle_request
     @api_request = ApiRequest.send("by_#{request.method.downcase}").where(request_path: request_path).first
     if @api_request.present?
-      render json: @api_request.return_json, status: @api_request.status_code.to_sym
+      render json: JsonTemplateHandler.new(@api_request.return_json, filtered_params).render, status: @api_request.status_code.to_sym
     else
       head :not_found
     end
@@ -70,6 +71,10 @@ class ApiRequestsController < ApplicationController
   def request_path
     full_path = request.path
     full_path.gsub("/#{@project.name.downcase}", '')
+  end
+
+  def filtered_params
+    params.except(:defaults, :controller, :action, :format)
   end
 
 end

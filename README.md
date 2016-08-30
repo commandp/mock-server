@@ -6,3 +6,6 @@
 
 * Ruby 2.3.0
 * PostgreSQL 9.4 +
+
+## TODO
+* 定義安全規則讓 template 中的自定變數符合安全規則
