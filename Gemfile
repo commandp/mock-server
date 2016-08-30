@@ -16,6 +16,7 @@ gem 'bootstrap', '~> 4.0.0.alpha3.1'
 #utilities
 gem 'slim'
 gem 'simple_form'
+gem 'friendly_id', '~> 5.1.0'
 
 group :development, :test do
   gem 'byebug', platform: :mri

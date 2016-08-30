@@ -11,6 +11,11 @@
 #  status_code    :integer
 #  name           :string           default(""), not null
 #  description    :text             default(""), not null
+#  project_id     :integer
+#
+# Indexes
+#
+#  index_api_requests_on_project_id  (project_id)
 #
 
 class ApiRequest < ApplicationRecord
