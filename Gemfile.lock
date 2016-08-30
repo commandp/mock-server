@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/norman/friendly_id.git
+  revision: aff0564584e84ffa505e6e278b65ca3c4ee5d698
+  branch: master
+  specs:
+    friendly_id (5.2.0.beta.1)
+      activerecord (>= 4.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -194,6 +202,7 @@ DEPENDENCIES
   byebug
   coffee-rails (~> 4.2)
   factory_girl_rails
+  friendly_id!
   jquery-rails
   listen (~> 3.0.5)
   pg (~> 0.18)

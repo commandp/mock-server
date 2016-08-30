@@ -1,8 +1,11 @@
 Rails.application.routes.draw do
 
-  root 'api_requests#index'
+  root 'projects#index'
 
-  resources :api_requests
+  resources :projects do
+    resources :api_requests
+  end
 
   DynamicRouter.load
+
 end

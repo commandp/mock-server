@@ -8,6 +8,9 @@ html lang="zh-TW"
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/ace.js', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'https://cdnjs.cloudflare.com/ajax/libs/ace/1.2.5/mode-json.js', 'data-turbolinks-track': 'reload'
+
   body
     = render 'shared/header'
     .container
