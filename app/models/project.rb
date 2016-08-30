@@ -7,7 +7,17 @@
 #  description :text
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  slug        :string
+#
+# Indexes
+#
+#  index_projects_on_slug  (slug)
 #
 
 class Project < ApplicationRecord
+
+  extend FriendlyId
+
+  friendly_id :name, use: [:slugged, :finders]
+
 end
