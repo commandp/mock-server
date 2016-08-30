@@ -1,5 +1,7 @@
 class ApiRequestsController < ApplicationController
 
+  before_action :set_default_format, only: [:handle_request]
+
   def index
     @api_requests = ApiRequest.all
   end
@@ -46,7 +48,7 @@ class ApiRequestsController < ApplicationController
     if @api_request.present?
       render json: @api_request.return_json, status: @api_request.status_code.to_sym
     else
-      render status: :not_found
+      head :not_found
     end
   end
 
@@ -54,6 +56,10 @@ class ApiRequestsController < ApplicationController
 
   def api_request_params
     params.require(:api_request).permit(:name, :description, :request_method, :request_path, :return_json, :status_code)
+  end
+
+  def set_default_format
+    request.format = :json
   end
 
 end
