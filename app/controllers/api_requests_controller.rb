@@ -1,7 +1,7 @@
 class ApiRequestsController < ApplicationController
 
   before_action :set_default_format, only: [:handle_request]
-  before_action :find_project, except: [:handle_request]
+  before_action :find_project
 
   def index
     @api_requests = @project.api_requests
@@ -45,7 +45,7 @@ class ApiRequestsController < ApplicationController
   end
 
   def handle_request
-    @api_request = ApiRequest.send("by_#{request.method.downcase}").where(request_path: request.path.downcase).first
+    @api_request = ApiRequest.send("by_#{request.method.downcase}").where(request_path: request_path).first
     if @api_request.present?
       render json: @api_request.return_json, status: @api_request.status_code.to_sym
     else
@@ -65,6 +65,11 @@ class ApiRequestsController < ApplicationController
 
   def find_project
     @project = Project.find(params[:project_id])
+  end
+
+  def request_path
+    full_path = request.path
+    full_path.gsub("/#{@project.name.downcase}", '')
   end
 
 end
