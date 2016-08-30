@@ -2,6 +2,7 @@ class ApiRequestsController < ApplicationController
 
   before_action :set_default_format, only: [:handle_request]
   before_action :find_project
+  skip_before_action :verify_authenticity_token, only: [:handle_request]
 
   def index
     @api_requests = @project.api_requests
