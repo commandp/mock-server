@@ -4,19 +4,23 @@ class FileUploader < CarrierWave::Uploader::Base
 
   def initialize(*)
     super
-    # FIXME 很蠢
-    if Setting.by_key('s3_bucket').present? && Setting.by_key('s3_region').present? && Setting.by_key('s3_access_key_id').present? && Setting.by_key('s3_secret_access_key').present?
+    if FileUploader.fog_settings_exist?
       self.fog_credentials = {
       :provider               => 'AWS',
-      :aws_access_key_id      => Setting.by_key('s3_access_key_id'),
-      :aws_secret_access_key  => Setting.by_key('s3_secret_access_key'),
+      :aws_access_key_id      => Setting.find_by(key: 's3_access_key_id'),
+      :aws_secret_access_key  => Setting.find_by(key: 's3_secret_access_key'),
       }
-      self.fog_directory = Setting.by_key('s3_bucket')
+      self.fog_directory = Setting.find_by(key: 's3_bucket')
     end
   end
 
+  def self.fog_settings_exist?
+    # FIXME 很蠢
+    Setting.find_by(key: 's3_bucket').value.present? && Setting.find_by(key: 's3_region').value.present? && Setting.find_by(key: 's3_access_key_id').value.present? && Setting.find_by(key: 's3_secret_access_key').value.present?   
+  end
+
   def self.set_storage
-    if Configuration.use_cloudfiles?
+    if self.fog_settings_exist?
       :fog
     else
       :file
