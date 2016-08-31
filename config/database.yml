@@ -80,6 +80,8 @@ test:
 #
 production:
   <<: *default
-  database: mock-server_production
-  username: mock-server
-  password: <%= ENV['MOCK-SERVER_DATABASE_PASSWORD'] %>
+  database: mock_server
+  host: <%= ENV['POSTGRES_HOST'] %>
+  port: <%= ENV['POSTGRES_PORT'] %>
+  username: <%= ENV['POSTGRES_USER'] %>
+  password: <%= ENV['POSTGRES_PASSWORD'] %>
