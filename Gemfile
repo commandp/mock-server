@@ -19,6 +19,11 @@ gem 'simple_form'
 gem 'friendly_id', github: 'norman/friendly_id', branch: 'master'
 gem 'carrierwave'
 gem 'fog-aws'
+gem 'seed-fu', '~> 2.3'
+gem 'mustermann-rails'
+
+#services
+gem 'rollbar'
 
 group :development, :test do
   gem 'byebug', platform: :mri

@@ -46,7 +46,7 @@ class ApiRequestsController < ApplicationController
   end
 
   def handle_request
-    @api_request = ApiRequest.send("by_#{request.method.downcase}").where(request_path: request_path).first
+    @api_request = @project.api_requests.send("by_#{request.method.downcase}").by_path(request_path)
     if @api_request.present?
       render json: JsonTemplateHandler.new(@api_request.return_json, filtered_params).render, status: @api_request.status_code.to_sym
     else

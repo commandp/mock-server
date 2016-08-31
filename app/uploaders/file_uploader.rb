@@ -16,7 +16,11 @@ class FileUploader < CarrierWave::Uploader::Base
 
   def self.fog_settings_exist?
     # FIXME 很蠢
-    Setting.find_by(key: 's3_bucket').value.present? && Setting.find_by(key: 's3_region').value.present? && Setting.find_by(key: 's3_access_key_id').value.present? && Setting.find_by(key: 's3_secret_access_key').value.present?   
+    settings = []
+    %w( s3_bucket s3_region s3_access_key_id s3_secret_access_key ).each do |attr|
+      settings << Setting.find_by(key: attr)
+    end
+    settings.size == 4 && settings.map{ |setting| setting.try(:value) }.compact.size == 4
   end
 
   def self.set_storage
