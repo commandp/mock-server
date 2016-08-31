@@ -20,4 +20,4 @@ USER nobody
 ENV RAILS_ENV production
 WORKDIR /app
 
-CMD ["bundle", "exec", "rails", "s"]
+CMD ["bin/entry"]
