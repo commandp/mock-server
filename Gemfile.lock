@@ -122,6 +122,10 @@ GEM
     mini_portile2 (2.1.0)
     minitest (5.9.0)
     multi_json (1.12.1)
+    mustermann (0.4.0)
+      tool (~> 0.2)
+    mustermann-rails (0.4.0)
+      mustermann (= 0.4.0)
     nio4r (1.2.1)
     nokogiri (1.6.8)
       mini_portile2 (~> 2.1.0)
@@ -204,6 +208,7 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.5)
+    tool (0.2.3)
     turbolinks (5.0.1)
       turbolinks-source (~> 5)
     turbolinks-source (5.0.0)
@@ -234,6 +239,7 @@ DEPENDENCIES
   friendly_id!
   jquery-rails
   listen (~> 3.0.5)
+  mustermann-rails
   pg (~> 0.18)
   puma (~> 3.0)
   rails (~> 5.0.0, >= 5.0.0.1)

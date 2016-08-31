@@ -20,6 +20,8 @@ gem 'friendly_id', github: 'norman/friendly_id', branch: 'master'
 gem 'carrierwave'
 gem 'fog-aws'
 
+gem 'mustermann-rails'
+
 group :development, :test do
   gem 'byebug', platform: :mri
 end
