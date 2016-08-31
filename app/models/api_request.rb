@@ -18,8 +18,8 @@
 #  index_api_requests_on_project_id  (project_id)
 #
 
+require 'mustermann'
 class ApiRequest < ApplicationRecord
-
 
   belongs_to :project
 
@@ -35,6 +35,16 @@ class ApiRequest < ApplicationRecord
   end
 
   enum status_code: Rack::Utils::SYMBOL_TO_STATUS_CODE
+
+  def self.by_path(path)
+    all.each do |req|
+      pattern = Mustermann.new(req.request_path, type: :rails)
+      if pattern.match path
+        return req
+      end
+    end
+    nil
+  end
 
   private
 
