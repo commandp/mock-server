@@ -21,4 +21,3 @@ $ bin/setup
 
 ## TODO
 * 定義安全規則讓 template 中的自定變數符合安全規則
-* 測試
