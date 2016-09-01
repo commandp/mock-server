@@ -6,21 +6,21 @@ class FileUploader < CarrierWave::Uploader::Base
     super
     if FileUploader.fog_settings_exist?
       self.fog_credentials = {
-      :provider               => 'AWS',
-      :aws_access_key_id      => Setting.find_by(key: 's3_access_key_id'),
-      :aws_secret_access_key  => Setting.find_by(key: 's3_secret_access_key'),
+        :provider               => 'AWS',
+        :aws_access_key_id      => ENV['S3_ACCESS_KEY_ID'],
+        :aws_secret_access_key  => ENV['S3_SECRET_ACCESS_KEY']
       }
-      self.fog_directory = Setting.find_by(key: 's3_bucket')
+      self.fog_directory = ENV['S3_BUCKET']
     end
   end
 
   def self.fog_settings_exist?
     # FIXME 很蠢
     settings = []
-    %w( s3_bucket s3_region s3_access_key_id s3_secret_access_key ).each do |attr|
-      settings << Setting.find_by(key: attr)
+    %w( S3_BUCKET S3_REGION S3_ACCESS_KEY_ID S3_SECRET_ACCESS_KEY ).each do |attr|
+      settings << ENV[attr]
     end
-    settings.size == 4 && settings.map{ |setting| setting.try(:value) }.compact.size == 4
+    settings.size == 4
   end
 
   def self.set_storage
