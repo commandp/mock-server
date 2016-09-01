@@ -20,7 +20,7 @@ class FileUploader < CarrierWave::Uploader::Base
     %w( S3_BUCKET S3_REGION S3_ACCESS_KEY_ID S3_SECRET_ACCESS_KEY ).each do |attr|
       settings << ENV[attr]
     end
-    settings.size == 4
+    settings.compact.size == 4
   end
 
   def self.set_storage
