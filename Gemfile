@@ -43,4 +43,6 @@ group :development, :test do
   gem 'annotate'
 end
 
+gem 'codeclimate-test-reporter', group: :test, require: nil
+
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
