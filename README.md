@@ -2,6 +2,10 @@
 
 為了前後端開發速度不一的 Mock API Server
 
+[![Build Status](https://travis-ci.org/commandp/mock-server.svg?branch=develop)](https://travis-ci.org/commandp/mock-server)
+[![Code Climate](https://codeclimate.com/github/commandp/mock-server/badges/gpa.svg)](https://codeclimate.com/github/commandp/mock-server)
+[![Test Coverage](https://codeclimate.com/github/commandp/mock-server/badges/coverage.svg)](https://codeclimate.com/github/commandp/mock-server/coverage)
+
 ## Requirements
 
 * Ruby 2.3.0
