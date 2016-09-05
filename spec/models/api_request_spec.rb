@@ -47,4 +47,13 @@ describe ApiRequest, type: :model do
     end
 
   end
+
+  describe 'save' do
+
+    it 'removes request_path end slach' do
+      request = build(:api_request, request_path: '/123/')
+      request.save
+      expect(request.request_path).to eq('/123')
+    end
+  end
 end
