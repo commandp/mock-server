@@ -40,6 +40,7 @@ end
 group :development, :test do
   gem 'factory_girl_rails'
   gem 'rspec-rails', '~> 3.5'
+  gem 'rails-controller-testing'
   gem 'annotate'
 end
 

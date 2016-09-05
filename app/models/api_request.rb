@@ -28,6 +28,7 @@ class ApiRequest < ApplicationRecord
   after_save :reload_route
   before_save :downcase_request_path_and_set_path
   before_save :upcase_request_method
+  before_save :delete_request_path_end_slash
 
   REQUEST_METHOD = %w( get post put patch delete )
   REQUEST_METHOD.each do |req|
@@ -61,6 +62,10 @@ class ApiRequest < ApplicationRecord
 
   def upcase_request_method
     self.request_method.upcase!
+  end
+
+  def delete_request_path_end_slash
+    self.request_path = self.request_path.chomp('/')
   end
 
 end

@@ -4,10 +4,6 @@ class ApiRequestsController < ApplicationController
   before_action :find_project
   skip_before_action :verify_authenticity_token, only: [:handle_request]
 
-  def index
-    @api_requests = @project.api_requests
-  end
-
   def new
     @api_request = @project.api_requests.build
   end
