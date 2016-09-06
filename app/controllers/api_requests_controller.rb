@@ -6,6 +6,7 @@ class ApiRequestsController < ApplicationController
 
   def new
     @api_request = @project.api_requests.build
+    @api_request.build_parameter
   end
 
   def show
@@ -53,7 +54,7 @@ class ApiRequestsController < ApplicationController
   private
 
   def api_request_params
-    params.require(:api_request).permit(:name, :description, :request_method, :request_path, :return_json, :status_code)
+    params.require(:api_request).permit(:name, :description, :request_method, :request_path, :return_json, :status_code, parameters_attributes: ['name', 'param_type', 'required', '_destroy'])
   end
 
   def set_default_format
