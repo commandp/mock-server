@@ -5,8 +5,10 @@ class FileUploader < CarrierWave::Uploader::Base
   def initialize(*)
     super
     if FileUploader.fog_settings_exist?
+      s3_region = ENV['S3_REGION'] || 'us-east-1'
       self.fog_credentials = {
         :provider               => 'AWS',
+        :region                 => s3_region,
         :aws_access_key_id      => ENV['S3_ACCESS_KEY_ID'],
         :aws_secret_access_key  => ENV['S3_SECRET_ACCESS_KEY']
       }
