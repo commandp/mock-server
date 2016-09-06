@@ -8,7 +8,7 @@ class ApiRequestsController < ApplicationController
 
   def new
     @api_request = @project.api_requests.build
-    @api_request.build_parameter
+    @api_request.parameters.build
   end
 
   def show
