@@ -18,6 +18,9 @@
 
 class Parameter < ApplicationRecord
 
+  validates_presence_of :name, :param_type
   belongs_to :api_request
+
+  scope :required, -> { where(required: true) }
 
 end

@@ -45,4 +45,34 @@ describe 'DynamicRouter', type: :request do
 
   end
 
+  context 'with parameter set' do
+
+    let(:api_request) { create(:api_request, request_method: 'POST') }
+
+    context 'without required param' do
+      let!(:parameter) { create(:parameter, api_request: api_request, required: true, name: 'name') }
+
+      it 'renders error' do
+        error_json = {
+                      error: "ParameterMissing",
+                      message: "Param is missing or the value is empty: name"
+        }.to_json
+        post "/#{api_request.project.name.downcase}#{api_request.request_path}"
+        expect(response.body).to eq error_json
+        expect(response.status).to eq 400
+      end
+
+    end
+
+    context 'with required param' do
+      let!(:parameter) { create(:parameter, api_request: api_request, required: false, name: 'name') }
+
+      it 'success' do
+        post "/#{api_request.project.name.downcase}#{api_request.request_path}"
+        expect(response.body).to eq api_request.return_json
+        expect(response.status).to eq(Rack::Utils::SYMBOL_TO_STATUS_CODE[api_request.status_code.to_sym])
+      end
+    end
+  end
+
 end

@@ -1,8 +1,9 @@
 FactoryGirl.define do
   factory :parameter do
     required false
-    name "MyString"
+    name "name"
     value "MyText"
-    param_type "MyString"
+    param_type "text"
+    api_request
   end
 end
