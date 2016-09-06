@@ -38,7 +38,7 @@ describe ApiRequestsController, type: :controller do
   end
 
   describe 'edit' do
-    
+
     let!(:api_request) { create(:api_request) }
 
     it 'success' do

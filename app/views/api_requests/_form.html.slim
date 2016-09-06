@@ -1,7 +1,11 @@
-= simple_form_for [project, api_request] do |f|
+= simple_nested_form_for [project, api_request] do |f|
   = f.input :name, label: '名稱'
   = f.input :description, label: '說明', as: :text
   = f.input :request_method, label: 'HTTP 請求方式', as: :select, collection: ApiRequest::REQUEST_METHOD.map(&:upcase), include_blank: false
+  .form-inline.highlight#params
+    h4 參數設定
+    = render 'params_form', f: f
+  = f.link_to_add '增加參數', :parameters, class: 'btn btn-info', data: { target: '#params' }
   = f.input :request_path, label: '請求路徑', wrapper: :vertical_input_group do
     .input-group-addon
       | /

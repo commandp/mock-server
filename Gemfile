@@ -21,6 +21,7 @@ gem 'carrierwave'
 gem 'fog-aws'
 gem 'seed-fu', '~> 2.3'
 gem 'mustermann-rails'
+gem 'nested_form'
 
 #services
 gem 'rollbar'

@@ -23,6 +23,10 @@ class ApiRequest < ApplicationRecord
 
   belongs_to :project
 
+  has_many :parameters, dependent: :destroy
+
+  accepts_nested_attributes_for :parameters, allow_destroy: true
+
   validates_presence_of :request_method, :request_path, :status_code, :return_json
 
   after_save :reload_route

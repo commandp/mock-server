@@ -1,0 +1,6 @@
+= f.simple_fields_for :parameters do |param|
+  = param.input :required, label: '必填', as: :boolean
+  = param.input :name, label: false, placeholder: 'Name'
+  = param.input :param_type, label: false, collection: ['Text', 'File'], include_blank: false
+  = param.link_to_remove do
+    = fa_icon 'times'

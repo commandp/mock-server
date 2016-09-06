@@ -10,6 +10,7 @@
         th Action
     tbody
       - @projects.each do |project|
-        td= link_to project.name, project
-        td= simple_format project.description
-        td= link_to '編輯', url_for([:edit, project]), class: 'btn btn-info'
+        tr
+          td= link_to project.name, project
+          td= simple_format project.description
+          td= link_to '編輯', url_for([:edit, project]), class: 'btn btn-info'

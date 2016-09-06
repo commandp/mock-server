@@ -4,8 +4,11 @@ class ApiRequestsController < ApplicationController
   before_action :find_project
   skip_before_action :verify_authenticity_token, only: [:handle_request]
 
+  rescue_from ActionController::ParameterMissing, with: :missing_params_error
+
   def new
     @api_request = @project.api_requests.build
+    @api_request.build_parameter
   end
 
   def show
@@ -43,6 +46,7 @@ class ApiRequestsController < ApplicationController
 
   def handle_request
     @api_request = @project.api_requests.send("by_#{request.method.downcase}").by_path(request_path)
+    check_required_params(@api_request)
     if @api_request.present?
       render json: JsonTemplateHandler.new(@api_request.return_json, filtered_params).render, status: @api_request.status_code.to_sym
     else
@@ -53,7 +57,7 @@ class ApiRequestsController < ApplicationController
   private
 
   def api_request_params
-    params.require(:api_request).permit(:name, :description, :request_method, :request_path, :return_json, :status_code)
+    params.require(:api_request).permit(:name, :description, :request_method, :request_path, :return_json, :status_code, parameters_attributes: ['name', 'param_type', 'required', '_destroy'])
   end
 
   def set_default_format
@@ -72,6 +76,15 @@ class ApiRequestsController < ApplicationController
   def filtered_params
     clone_params = params.clone
     ParamsGuard.new(clone_params).filtered_params
+  end
+
+  def check_required_params(api_request)
+    required = api_request.parameters.required.pluck(:name)
+    params.required(required)
+  end
+
+  def missing_params_error(exception)
+    render json: { error: 'ParameterMissing', message: "Param is missing or the value is empty: #{exception.param}" }, status: 400
   end
 
 end
