@@ -12,16 +12,19 @@
 #  name           :string           default(""), not null
 #  description    :text             default(""), not null
 #  project_id     :integer
+#  collection_id  :integer
 #
 # Indexes
 #
-#  index_api_requests_on_project_id  (project_id)
+#  index_api_requests_on_collection_id  (collection_id)
+#  index_api_requests_on_project_id     (project_id)
 #
 
 require 'mustermann'
 class ApiRequest < ApplicationRecord
 
   belongs_to :project
+  belongs_to :collection
 
   has_many :parameters, dependent: :destroy
 
