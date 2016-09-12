@@ -1,0 +1,6 @@
+.api-content.flex-items-xs-middle
+  div.flex-10.flex-container.flex-items-xs-middle
+    div class="col-xs-2 tag tag-#{request_method_to_bootstrap_class(api.request_method)}"= api.request_method
+    .col-xs-6.request-path= "/#{@project.name.downcase}#{api.request_path}"
+    p.col-xs-4.request-description.text-xs-right.text-muted= api.description
+  = link_to('Edit', url_for([:edit, @project, api]), class: 'flex-2 btn btn-info')

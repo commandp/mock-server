@@ -1,0 +1,7 @@
+ul.nav.list-group#project-sidebar
+  - project.collections.each do |collection|
+    li.nav-item.list-group-item
+      = link_to collection.name, "#collection-#{collection.id}", class: 'nav-link'
+  - if @project.uncollection_apis.count != 0
+    li.nav-item.list-group-item
+      = link_to '未分類', "#uncollection", class: 'nav-link'

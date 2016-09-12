@@ -1,6 +1,7 @@
 = simple_nested_form_for [project, api_request] do |f|
   = f.input :name, label: '名稱'
   = f.input :description, label: '說明', as: :text
+  = f.association :collection, label: '分類'
   = f.input :request_method, label: 'HTTP 請求方式', as: :select, collection: ApiRequest::REQUEST_METHOD.map(&:upcase), include_blank: false
   .form-inline.highlight#params
     h4 參數設定

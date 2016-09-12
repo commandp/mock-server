@@ -37,6 +37,8 @@ class ApiRequest < ApplicationRecord
   before_save :upcase_request_method
   before_save :delete_request_path_end_slash
 
+  scope :uncollection, -> { where(collection_id: nil) }
+
   REQUEST_METHOD = %w( get post put patch delete )
   REQUEST_METHOD.each do |req|
     scope "by_#{req}".to_sym, -> { where(request_method: req.upcase) }

@@ -3,5 +3,9 @@ header.navbar.navbar-light.navbar-static-top.bd-navbar
     nav
       .collapse.navbar-toggleable-xs
         ul.nav.navbar-nav
-          li.nav-item.active Mock API Server
-          li 版本 #{link_to GIT_VERSION[0, 8], GITHUB_COMMIT_LINK, target: '_blank'}
+          li.nav-item class="#{active_class_for_path('root')}"
+            = link_to 'Mock API Server', root_path, class: 'nav-item nav-link'
+          li.nav-item class="#{active_class_for_path('projects')}"
+            = link_to '專案列表', projects_path, class: 'nav-item nav-link'
+          li.nav-item class="#{active_class_for_path('settings')}"
+            = link_to '設定', settings_path, class: 'nav-item nav-link'
