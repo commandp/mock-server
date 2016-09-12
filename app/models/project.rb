@@ -26,4 +26,8 @@ class Project < ApplicationRecord
 
   validates_presence_of :name
 
+  def uncollection_apis
+    apis.uncollection
+  end
+
 end

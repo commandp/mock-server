@@ -19,4 +19,6 @@ class Collection < ApplicationRecord
   belongs_to :project
   has_many :api_requests
 
+  validates_presence_of :name
+
 end

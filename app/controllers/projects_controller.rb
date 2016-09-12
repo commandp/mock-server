@@ -5,7 +5,7 @@ class ProjectsController < ApplicationController
   end
 
   def show
-    @project = Project.includes(:api_requests).find(params[:id])
+    @project = Project.includes([:collections, :api_requests]).find(params[:id])
   end
 
   def edit
