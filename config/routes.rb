@@ -4,6 +4,7 @@ Rails.application.routes.draw do
 
   resources :projects do
     resources :api_requests
+    resources :collections
   end
 
   resources :settings, only: [:index, :update]

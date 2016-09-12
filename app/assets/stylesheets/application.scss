@@ -3,6 +3,7 @@
  *= require_self
  */
 
+$enable-flex: true;
 @import 'bootstrap';
 
 #editor {
@@ -22,3 +23,38 @@ a i.fa-times {
 .form-inline .fields * {
   margin-right: 5px;
 }
+
+.request-description {
+  margin-bottom: 0;
+}
+.api-content {
+  display: flex;
+  .flex-10 {
+    flex: 10;
+  }
+  .flex-2 {
+    flex: 2;
+  }
+  margin-top: .5rem;
+  margin-bottom: .5rem;
+  .flex-container {
+    display: flex;
+  }
+}
+
+.project {
+  position: relative;
+}
+
+header.navbar {
+  padding: .5rem 1rem;
+}
+
+.bd-footer {
+  padding: 4rem 0;
+  margin-top: 4rem;
+  font-size: 85%;
+  text-align: center;
+  background-color: #f7f7f7;
+}
+

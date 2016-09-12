@@ -1,16 +1,14 @@
-.row
-  .col-md-6
-    = link_to '新增專案', new_project_path, class: 'btn btn-primary pull-right'
-.row
-  table.table
-    thead
+.clearfix
+  = link_to '新增專案', new_project_path, class: 'btn btn-primary pull-right'
+table.table
+  thead
+    tr
+      th Name
+      th Description
+      th Action
+  tbody
+    - @projects.each do |project|
       tr
-        th Name
-        th Description
-        th Action
-    tbody
-      - @projects.each do |project|
-        tr
-          td= link_to project.name, project
-          td= simple_format project.description
-          td= link_to '編輯', url_for([:edit, project]), class: 'btn btn-info'
+        td= link_to project.name, project
+        td= simple_format project.description
+        td= link_to '編輯', url_for([:edit, project]), class: 'btn btn-info'

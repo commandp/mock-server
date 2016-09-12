@@ -22,7 +22,12 @@ class Project < ApplicationRecord
 
   has_many :api_requests, dependent: :destroy
   alias_method :apis, :api_requests
+  has_many :collections
 
   validates_presence_of :name
+
+  def uncollection_apis
+    apis.uncollection
+  end
 
 end

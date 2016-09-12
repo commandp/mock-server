@@ -1,0 +1,5 @@
+= simple_form_for [:project, collection] do |f|
+  = f.input :name, label: '分類名稱'
+  = f.input :description, as: :text, label: '分類描述'
+  .form-actions
+    = f.button :submit, '送出', class: 'btn btn-success btn-lg'

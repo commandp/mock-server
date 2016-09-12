@@ -12,16 +12,19 @@
 #  name           :string           default(""), not null
 #  description    :text             default(""), not null
 #  project_id     :integer
+#  collection_id  :integer
 #
 # Indexes
 #
-#  index_api_requests_on_project_id  (project_id)
+#  index_api_requests_on_collection_id  (collection_id)
+#  index_api_requests_on_project_id     (project_id)
 #
 
 require 'mustermann'
 class ApiRequest < ApplicationRecord
 
   belongs_to :project
+  belongs_to :collection
 
   has_many :parameters, dependent: :destroy
 
@@ -33,6 +36,8 @@ class ApiRequest < ApplicationRecord
   before_save :downcase_request_path_and_set_path
   before_save :upcase_request_method
   before_save :delete_request_path_end_slash
+
+  scope :uncollection, -> { where(collection_id: nil) }
 
   REQUEST_METHOD = %w( get post put patch delete )
   REQUEST_METHOD.each do |req|
