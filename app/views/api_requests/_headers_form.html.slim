@@ -1,0 +1,5 @@
+= f.simple_fields_for :headers do |header|
+  = header.input :key, label: false, placeholder: 'Key'
+  = header.input :value, label: false, placeholder: 'Value'
+  = header.link_to_remove do
+    = fa_icon 'times'
