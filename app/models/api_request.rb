@@ -27,6 +27,7 @@ class ApiRequest < ApplicationRecord
   belongs_to :collection
 
   has_many :parameters, dependent: :destroy
+  has_many :headers, dependent: :destroy
 
   accepts_nested_attributes_for :parameters, allow_destroy: true
 
