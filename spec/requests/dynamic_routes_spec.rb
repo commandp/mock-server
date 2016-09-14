@@ -53,13 +53,8 @@ describe 'DynamicRouter', type: :request do
       let!(:parameter) { create(:parameter, api_request: api_request, required: true, name: 'name') }
 
       it 'renders error' do
-        error_json = {
-                      error: "ParameterMissing",
-                      message: "Param is missing or the value is empty: name"
-        }.to_json
         post "/#{api_request.project.name.downcase}#{api_request.request_path}"
-        expect(response.body).to eq error_json
-        expect(response.status).to eq 400
+        expect(response.body).to eq (MissingParamError.new(caused_by: parameter.name).to_json)
       end
 
     end
@@ -72,6 +67,27 @@ describe 'DynamicRouter', type: :request do
         expect(response.body).to eq api_request.return_json
         expect(response.status).to eq(Rack::Utils::SYMBOL_TO_STATUS_CODE[api_request.status_code.to_sym])
       end
+    end
+
+    context 'without required header' do
+      let!(:header) { create(:header, api_request: api_request) }
+
+      it 'renders error' do
+        post "/#{api_request.project.name.downcase}#{api_request.request_path}"
+        expect(response.body).to eq (MissingHeaderError.new(caused_by: header.key).to_json)
+      end
+
+    end
+
+    context 'with required header' do
+      let!(:header) { create(:header, api_request: api_request) }
+
+      it 'success' do
+        post "/#{api_request.project.name.downcase}#{api_request.request_path}", headers: { header.key => header.value }
+        expect(response.body).to eq api_request.return_json
+        expect(response.status).to eq(Rack::Utils::SYMBOL_TO_STATUS_CODE[api_request.status_code.to_sym])
+      end
+
     end
   end
 
