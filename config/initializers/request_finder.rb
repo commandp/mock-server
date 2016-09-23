@@ -17,7 +17,7 @@ class RequestFinder
   def simulate
     @simulate ||= begin
       parser = ::ActionDispatch::Journey::Parser.new
-      ast = ApiRequest.all.map do |api_request|
+      ast = ApiRequest.includes(:project).all.map do |api_request|
         ast = parser.parse api_request_full_path(api_request)
         ast.each { |n| n.memo = api_request.id }
         ast
