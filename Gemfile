@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source 'https://gems.ruby-china.org/'
 
 
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
@@ -44,6 +44,17 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'rails-controller-testing'
   gem 'annotate'
+
+  gem 'binding_of_caller'
+  gem 'pry'
+  gem 'pry-remote'
+  gem 'pry-nav'
+
+
+  gem 'pry-rails'
+  gem 'awesome_print', require: false
+  gem 'hirb', require: false
+  gem 'hirb-unicode', require: false
 end
 
 gem 'codeclimate-test-reporter', group: :test, require: nil

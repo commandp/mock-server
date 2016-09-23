@@ -62,6 +62,7 @@ class ApiRequest < ApplicationRecord
 
   def reload_route
     DynamicRouter.reload
+    RequestFinder.instance.reload
   end
 
   def downcase_request_path_and_set_path
