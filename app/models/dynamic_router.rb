@@ -5,7 +5,7 @@ class DynamicRouter
     return unless ActiveRecord::Base.connection.data_source_exists? 'api_requests'
     MockServer::Application.routes.draw do
       ApiRequest.all.each do |req|
-        match ":project_id/#{req.request_path}", to: "api_requests#handle_request", via: [req.request_method.try(:to_sym)], defaults: { format: :json }
+        match ":project_id/#{req.request_path}", to: 'api_requests#handle_request', via: [req.request_method.try(:to_sym)], defaults: { format: :json, req_id: req.id }
       end
     end
   end

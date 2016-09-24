@@ -34,7 +34,8 @@ class ApiRequest < ApplicationRecord
 
   validates_presence_of :request_method, :request_path, :status_code, :return_json
 
-  after_save :reload_route
+  after_create :append_to_routes
+  after_update :reload_routes, if: :route_changed?
   before_save :downcase_request_path_and_set_path
   before_save :upcase_request_method
   before_save :delete_request_path_end_slash
@@ -60,8 +61,19 @@ class ApiRequest < ApplicationRecord
 
   private
 
-  def reload_route
+  def append_to_routes
+    request_path, request_method, id = self.request_path, self.request_method, self.id
+    ActionDispatch::Routing::Mapper.new(MockServer::Application.routes).instance_exec do
+      match ":project_id/#{request_path}", to: 'api_requests#handle_request', via: [request_method.try(:to_sym)], defaults: { format: :json, req_id: id }
+    end
+  end
+
+  def reload_routes
     DynamicRouter.reload
+  end
+
+  def route_changed?
+    (changes.keys & %w(request_method request_path)).present?
   end
 
   def downcase_request_path_and_set_path

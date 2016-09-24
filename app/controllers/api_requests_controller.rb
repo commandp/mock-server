@@ -45,7 +45,7 @@ class ApiRequestsController < ApplicationController
   end
 
   def handle_request
-    @api_request = @project.api_requests.send("by_#{request.method.downcase}").by_path(request_path)
+    @api_request = @project.api_requests.find(params[:defaults][:req_id])
     check_required_headers(@api_request)
     check_required_params(@api_request)
     if @api_request.present?
