@@ -51,7 +51,7 @@ class ApiRequestsController < ApplicationController
       check_required_params(@api_request)
       render json: JsonTemplateHandler.new(@api_request.return_json, filtered_params).render, status: @api_request.status_code.to_sym
     else
-      head :not_found
+      render :not_found
     end
   end
 

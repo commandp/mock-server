@@ -6,6 +6,6 @@ FactoryGirl.define do
     return_json '{"a": "b"}'
     name '厲害的 API'
     description 'API 超厲害'
-    project
+    project { create :project }
   end
 end
