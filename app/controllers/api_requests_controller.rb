@@ -45,13 +45,13 @@ class ApiRequestsController < ApplicationController
   end
 
   def handle_request
-    @api_request = @project.api_requests.send("by_#{request.method.downcase}").by_path(request_path)
-    check_required_headers(@api_request)
-    check_required_params(@api_request)
+    @api_request = @project.api_requests.find_by(id: params[:defaults][:req_id])
     if @api_request.present?
+      check_required_headers(@api_request)
+      check_required_params(@api_request)
       render json: JsonTemplateHandler.new(@api_request.return_json, filtered_params).render, status: @api_request.status_code.to_sym
     else
-      head :not_found
+      render :not_found
     end
   end
 
