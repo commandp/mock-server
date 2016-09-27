@@ -37,6 +37,16 @@ group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+
+  gem 'pry'
+  gem 'pry-remote'
+  gem 'pry-nav'
+
+
+  gem 'pry-rails'
+  gem 'awesome_print', require: false
+  gem 'hirb', require: false
+  gem 'hirb-unicode', require: false
 end
 
 group :development, :test do
