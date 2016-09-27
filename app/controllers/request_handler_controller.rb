@@ -10,7 +10,7 @@ class RequestHandlerController < ApplicationController
       check_required_params(@request)
       render json: JsonTemplateHandler.new(@request.return_json, filtered_params).render, status: @request.status_code.to_sym
     else
-      render
+      fail ApplicationError, 'api not exist!'
     end
   end
 
