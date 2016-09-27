@@ -14,3 +14,5 @@ tags
 .foreman
 dump.rdb
 .byebug_history
+config/database.yml
+.idea
