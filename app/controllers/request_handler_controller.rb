@@ -27,7 +27,7 @@ class RequestHandlerController < ApplicationController
 
   def merge_params_from_path
     match_date = @memo[:pattern].match("/#{params[:path]}")
-    (match_date.names.zip(match_date.captures).to_h).each do |k, v|
+    match_date.names.zip(match_date.captures).to_h.each do |k, v|
       params[k] = v
     end
   end
@@ -41,14 +41,11 @@ class RequestHandlerController < ApplicationController
     request.format = :json
   end
 
-
   def check_required_params(api_request)
-    begin
-      required = api_request.parameters.required.pluck(:name)
-      params.required(required)
-    rescue ActionController::ParameterMissing => exception
-      fail MissingParamError, caused_by: exception.param
-    end
+    required = api_request.parameters.required.pluck(:name)
+    params.required(required)
+  rescue ActionController::ParameterMissing => exception
+    raise MissingParamError, caused_by: exception.param
   end
 
   def check_required_headers(api_request)

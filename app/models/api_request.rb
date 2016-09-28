@@ -22,7 +22,6 @@
 
 require 'mustermann'
 class ApiRequest < ApplicationRecord
-
   belongs_to :project
   belongs_to :collection
 
@@ -42,7 +41,7 @@ class ApiRequest < ApplicationRecord
 
   scope :uncollection, -> { where(collection_id: nil) }
 
-  REQUEST_METHOD = %w( get post put patch delete )
+  REQUEST_METHOD = %w( get post put patch delete ).freeze
   REQUEST_METHOD.each do |req|
     scope "by_#{req}".to_sym, -> { where(request_method: req.upcase) }
   end
@@ -70,18 +69,15 @@ class ApiRequest < ApplicationRecord
   end
 
   def downcase_request_path_and_set_path
-    self.request_path.downcase!
-    if !self.request_path.start_with?('/')
-      self.request_path = '/' + self.request_path
-    end
+    request_path.downcase!
+    self.request_path = '/' + request_path unless request_path.start_with?('/')
   end
 
   def upcase_request_method
-    self.request_method.upcase!
+    request_method.upcase!
   end
 
   def delete_request_path_end_slash
-    self.request_path = self.request_path.chomp('/')
+    self.request_path = request_path.chomp('/')
   end
-
 end

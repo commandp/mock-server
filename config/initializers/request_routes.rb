@@ -2,9 +2,9 @@ class RequestRoutes
   include Singleton
 
   def match(path, method)
-    memos  = simulate.simulate(path).try(:memos)
+    memos = simulate.simulate(path).try(:memos)
     return nil if memos.blank?
-    memos.reverse.find{|memo| memo[:request_method] == method }
+    memos.reverse.find { |memo| memo[:request_method] == method }
   end
 
   def from_string
@@ -45,9 +45,9 @@ class RequestRoutes
 
   def parse_to_nodes(api_request)
     memo = {
-        request_id: api_request.id,
-        request_method: api_request.request_method,
-        pattern: ActionDispatch::Journey::Path::Pattern.from_string(api_request.request_path)
+      request_id: api_request.id,
+      request_method: api_request.request_method,
+      pattern: ActionDispatch::Journey::Path::Pattern.from_string(api_request.request_path)
     }
     nodes = parser.parse api_request_full_path(api_request)
     nodes.each { |n| n.memo = memo }
