@@ -22,7 +22,6 @@
 
 require 'mustermann'
 class ApiRequest < ApplicationRecord
-
   belongs_to :project
   belongs_to :collection
 
@@ -34,15 +33,15 @@ class ApiRequest < ApplicationRecord
 
   validates_presence_of :request_method, :request_path, :status_code, :return_json
 
-  after_create :append_to_routes
-  after_update :reload_routes, if: :route_changed?
+  after_commit :append_to_routes, on: :create
+  after_update :append_to_routes, if: :route_changed?
   before_save :downcase_request_path_and_set_path
   before_save :upcase_request_method
   before_save :delete_request_path_end_slash
 
   scope :uncollection, -> { where(collection_id: nil) }
 
-  REQUEST_METHOD = %w( get post put patch delete )
+  REQUEST_METHOD = %w( get post put patch delete ).freeze
   REQUEST_METHOD.each do |req|
     scope "by_#{req}".to_sym, -> { where(request_method: req.upcase) }
   end
@@ -62,14 +61,7 @@ class ApiRequest < ApplicationRecord
   private
 
   def append_to_routes
-    request_path, request_method, id = self.request_path, self.request_method, self.id
-    ActionDispatch::Routing::Mapper.new(MockServer::Application.routes).instance_exec do
-      match ":project_id/#{request_path}", to: 'api_requests#handle_request', via: [request_method.try(:to_sym)], defaults: { format: :json, req_id: id }
-    end
-  end
-
-  def reload_routes
-    DynamicRouter.reload
+    RequestRoutes.instance.add_route(self)
   end
 
   def route_changed?
@@ -77,18 +69,15 @@ class ApiRequest < ApplicationRecord
   end
 
   def downcase_request_path_and_set_path
-    self.request_path.downcase!
-    if !self.request_path.start_with?('/')
-      self.request_path = '/' + self.request_path
-    end
+    request_path.downcase!
+    self.request_path = '/' + request_path unless request_path.start_with?('/')
   end
 
   def upcase_request_method
-    self.request_method.upcase!
+    request_method.upcase!
   end
 
   def delete_request_path_end_slash
-    self.request_path = self.request_path.chomp('/')
+    self.request_path = request_path.chomp('/')
   end
-
 end
